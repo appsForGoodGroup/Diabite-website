@@ -9,7 +9,7 @@ const firebaseConfig = {
     apiKey: "AIzaSyCRkAPdVFibsd2ZhWA-imn68qggH0NVdMA",
     authDomain: "diabite-42b51.firebaseapp.com",
     projectId: "diabite-42b51",
-    storageBucket: "diabite-42b51.appspot.com", // ✅ fixed .appspot.com
+    storageBucket: "diabite-42b51.appspot.com",
     messagingSenderId: "1048048222722",
     appId: "1:1048048222722:web:9d30ff38e4f83e4e0d1d1b"
 };
