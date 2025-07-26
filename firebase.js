@@ -29,6 +29,7 @@ window.makeAPopUp = function () {
 
     const tags = prompt("Enter tags (comma separated):");
     if (!tags) return;
+    const estimatedSugar = prompt("Enter estimated sugar content (in grams):");
 
     const publication = confirm("Do you want to publish this recipe?");
     const recipe = {
@@ -37,6 +38,7 @@ window.makeAPopUp = function () {
         instructions: instructions,
         tags: tags.split(',').map(t => t.trim()),
         publication: publication,
+        sugar: estimatedSugar ? parseFloat(estimatedSugar) : 0,
         createdAt: new Date()
     };
 
