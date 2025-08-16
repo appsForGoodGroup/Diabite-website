@@ -1,32 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght:@300;400;500;600;700&display=swap');
+
 *{
     margin: 0;
-}
-.navbar {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #110941;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-li {
-  float: left;
+
+body{
+  height: 100vh;
+  background-color: azure;
+  background-size: cover;
 }
 
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
+
+header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+}
+
+header .navbar{
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+
+.navbar .logo{
+  font-size: 2.1 rem;
+  font-weight: 500;
+}
+
+.navbar .links{
+  list-style: none;
+  display: flex;
+  gap: 40px;
+}
+
+
+
+.navbar a{
+  color: black;
   text-decoration: none;
+  transition: 0.2s ease;
 }
 
-li a:hover:not(.active) {
-  background-color: #111;
-}
-
-.active {
-  background-color: #e53434;
+.navbar a:hover{
+  color: #a884fd;
 }
 
 form{
@@ -36,4 +62,121 @@ form{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.hero-section{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.herosection .content{
+  color: black;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.herosection .content h1{
+  font-size: 3rem;
+  max-width: 600px;
+  margin-bottom: 10px;
+}
+.herosection .content p{
+  font-weight: 300;
+  margin-top: 15px;
+  max-width: 600px;
+}
+
+.hero-section .content button{
+  background: #fff;
+  outline: none;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 10px 30px;
+  margin-top: 20px;
+  border-radius: 5px;
+  cursor: pointer
+}
+
+.hero-section .content button:hover{
+  background: #84a6fd;
+  color: white;
+  transition: 0.3s ease;
+}
+
+#menu-btn{
+  color: black;
+  cursor: pointer;
+  display: none;
+}
+#close-btn{
+  display: none;
+  color: black;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+}
+/* mobile view */
+
+@media screen and (max-width: 900px){
+  #menu-btn, #close-btn{
+    display: block;
+    font-size: 2rem;
+  }
+
+  header{
+    padding: 10px 20px;
+  }
+
+  header.show-menu::before{
+    content: "";
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    backdrop-filter: blur(5px);
+  }
+
+  .navbar .links{
+    position: fixed;
+    left: -260px;
+    top: 0;
+    flex-direction: column;
+    width: 260px;
+    height: 100vh;
+    background: #fff;
+    padding: 70 40 0;
+    transition: left 0.3 ease;
+  }
+
+  header.show-menu .navbar .links{
+    left: 0;
+  }
+
+  .hero-section .content{
+    text-align: center;
+  }
+
+  .hero-section .content :is(h1,p){
+    max-width: 100%;
+  }
+
+  .hero-section .content h1{
+    font-size: 2.5 rem;
+    line-height: 60px
+  }
+
+  .herosection .content button{
+    padding: 10 20;
+
+  }
+
+  .navbar a{
+    color: black;
+  }
 }

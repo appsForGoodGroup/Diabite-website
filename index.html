@@ -1,22 +1,47 @@
-<!-- This is gonna bekind of the portfolio of the website -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to DiaBite</title>
+    <title>DiaBite</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
 </head>
-
 <body>
-    <div class="navbar">
-        <ul class="navbar">
-            <li><a class="active" href="#home">Home</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="">Login/Sign up</a></li>
-        </ul>
-    </div>
-</body>
+    <header> 
+        <nav class="navbar">
+            <a href="#" class="logo">DiaBite</a>
+            <ul class="links">
+                <span id="close-btn" class="material-symbols-outlined">close</span>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="">Search</a></li>
+                <li><a href="upload.html">Upload</a></li>
+                 <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <span id="menu-btn" class="material-symbols-outlined">menu</span>
+        </nav>
+    </header>
 
+    <section class="hero-section">
+        <div class="content">
+            <h1>Meal Prep Made Easy </h1>
+            <p>Diabite will help you find personalized meals that will suit your ingredients</p>
+            <button>Start!</button>
+        </div>
+    </section>
+
+    <script>
+        const header = document.querySelector('header');
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+
+        menuBtn.addEventListener('click', () => {
+            header.classList.toggle('show-menu');
+        });
+        closeBtn.addEventListener('click', () => {
+            menuBtn.click();
+        });
+    </script>
+</body>
 </html>
