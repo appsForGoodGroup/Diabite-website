@@ -33,7 +33,7 @@ header .navbar{
 
 
 .navbar .logo{
-  font-size: 2.1 rem;
+  font-size: 2rem;
   font-weight: 500;
 }
 
@@ -71,21 +71,21 @@ form{
   padding: 0 20px;
 }
 
-.herosection .content{
+.hero-section .content{
   color: black;
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
 }
 
-.herosection .content h1{
+.hero-section .content h1{
   font-size: 3rem;
   max-width: 600px;
   margin-bottom: 10px;
 }
-.herosection .content p{
+.hero-section .content p{
   font-weight: 300;
-  margin-top: 15px;
+  margin-bottom: 10px;
   max-width: 600px;
 }
 
@@ -150,8 +150,8 @@ form{
     width: 260px;
     height: 100vh;
     background: #fff;
-    padding: 70 40 0;
-    transition: left 0.3 ease;
+    padding: 70px 40px 0px;
+    transition: left 0.3s ease;
   }
 
   header.show-menu .navbar .links{
@@ -162,16 +162,16 @@ form{
     text-align: center;
   }
 
-  .hero-section .content :is(h1,p){
+  .hero-section .content:is(h1,p){
     max-width: 100%;
   }
 
   .hero-section .content h1{
-    font-size: 2.5 rem;
+    font-size: 2.5rem;
     line-height: 60px
   }
 
-  .herosection .content button{
+  .hero-section .content button{
     padding: 10 20;
 
   }
