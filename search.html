@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DiaBite</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <a href="#" class="logo">DiaBite</a>
+        <ul class="links">
+          <span id="close-btn" class="material-symbols-outlined">close</span>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="search.html">Search</a></li>
+          <li><a href="upload.html">Upload</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <span id="menu-btn" class="material-symbols-outlined">menu</span>
+      </nav>
+    </header>
+
+    <section class="search-wrapper">
+        <form action="" class="searchbar">
+            <input type="text" placeholder="Search.." name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </section>
+
+    <script>
+      const header = document.querySelector("header");
+      const menuBtn = document.getElementById("menu-btn");
+      const closeBtn = document.getElementById("close-btn");
+
+      menuBtn.addEventListener("click", () => {
+        header.classList.toggle("show-menu");
+      });
+      closeBtn.addEventListener("click", () => {
+        menuBtn.click();
+      });
+    </script>
+  </body>
+</html>
