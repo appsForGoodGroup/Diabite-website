@@ -30,11 +30,11 @@
 
     <section class="search-wrapper">
         <form action="" class="searchbar">
-            <input type="text" placeholder="Search.." name="search">
+            <input type="text" placeholder="Search.." name="search" class="search-input">
       <button type="submit"><i class="fa fa-search"></i></button>
         </form>
+        <div class="card-holder result-holder"></div>
     </section>
-
     <script>
       const header = document.querySelector("header");
       const menuBtn = document.getElementById("menu-btn");
@@ -47,5 +47,7 @@
         menuBtn.click();
       });
     </script>
+
+    <script src="script.js"></script>
   </body>
 </html>
