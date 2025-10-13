@@ -21,6 +21,7 @@
           <li><a href="#about">About</a></li>
           <li><a href="search.html">Search</a></li>
           <li><a href="upload.html">Upload</a></li>
+          <li><a href="plan.html">Meal Plan</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
         <span id="menu-btn" class="material-symbols-outlined">menu</span>
@@ -70,17 +71,6 @@
       </div>
     </section>
 
-    <script>
-      const header = document.querySelector("header");
-      const menuBtn = document.getElementById("menu-btn");
-      const closeBtn = document.getElementById("close-btn");
-
-      menuBtn.addEventListener("click", () => {
-        header.classList.toggle("show-menu");
-      });
-      closeBtn.addEventListener("click", () => {
-        menuBtn.click();
-      });
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>

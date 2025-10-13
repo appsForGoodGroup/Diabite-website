@@ -66,6 +66,10 @@ form{
     flex-direction: column;
 }
 
+.inactive{
+    display: none;
+}
+
 .hero-section{
   height: 100vh;
   display: flex;
@@ -105,6 +109,40 @@ form{
 
 .hero-section .content button:hover{
   background: #84a6fd;
+  color: white;
+  transition: 0.3s ease;
+}
+
+.meal-plan-hero .content{
+  text-align: center;
+  color: black;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.meal-plan-hero .content h1{
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+.meal-plan-hero .content p{
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+.meal-plan-hero .content button{
+  background: #fff;
+  outline: none;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 10px 30px;
+  margin-top: 20px;
+  border-radius: 5px;
+  cursor: pointer
+}
+
+.meal-plan-hero .content button:hover{
+  background: #fd8484;
   color: white;
   transition: 0.3s ease;
 }
@@ -195,6 +233,18 @@ form{
   border-radius: 0 10px 10px 0;
   cursor: pointer;
 }
+
+.yellow{
+  background-color: #fff8ba;
+}
+.purple{
+  background-color: #d6b3ff;
+}
+.orange{
+  background-color: #ffd8b3;
+}
+
+
 
 /* mobile view */
 

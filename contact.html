@@ -9,14 +9,21 @@
 </head>
 
 <body>
-    <div class="navbar">
-        <ul class="navbar">
-            <li><a href="#home">Home</a></li>
-            <li><a class="active" href="">Contact</a></li>
-            <li><a href="contact.html">Login/Sign up</a></li>
+    <header>
+      <nav class="navbar">
+        <a href="#" class="logo">DiaBite</a>
+        <ul class="links">
+          <span id="close-btn" class="material-symbols-outlined">close</span>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="search.html">Search</a></li>
+          <li><a href="upload.html">Upload</a></li>
+          <li><a href="plan.html">Meal Plan</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
-    </div>
-
+        <span id="menu-btn" class="material-symbols-outlined">menu</span>
+      </nav>
+    </header>
     <div class="form">
 
 <form action="https://api.web3forms.com/submit" method="POST">
@@ -38,6 +45,7 @@
 
 </form>
     </div>
+    <script src="script.js"></script>
 </body>
 
 </html>
