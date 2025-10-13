@@ -147,6 +147,10 @@ form{
   transition: 0.3s ease;
 }
 
+.ingredient-item:hover{
+  text-decoration: line-through;
+}
+
 #menu-btn{
   color: black;
   cursor: pointer;

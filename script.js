@@ -10,7 +10,6 @@ closeBtn.addEventListener("click", () => {
 });
 
 //Ingredients Pop Up
-
 let ingredientsList = [];
 function IngredientsPopUp() {
   const input = prompt(
@@ -38,7 +37,7 @@ function IngredientsPopUp() {
     }
   }
 
-  // Merge new items into ingredientsList (dedupe, case-insensitive)
+  // Merge new items into ingredientsList
   newItems.forEach((item) => {
     const exists = ingredientsList.some(
       (i) => i.toLowerCase() === item.toLowerCase()
@@ -46,26 +45,23 @@ function IngredientsPopUp() {
     if (!exists) ingredientsList.push(item);
   });
 
-  // Persist and render
   localStorage.setItem("userIngredients", JSON.stringify(ingredientsList));
   console.log("User Ingredients:", ingredientsList);
 
-  // Ensure the UI elements exist
   const inactiveP = document.querySelector(".add-ingredients .inactive");
   const ingredientsUl = document.querySelector(".ingredients-list");
   if (inactiveP) inactiveP.classList.remove("inactive");
   if (!ingredientsUl) return;
 
-  // Clear any existing list to avoid duplicates, then render
   ingredientsUl.innerHTML = "";
-  ingredientsList.forEach((it) => {
+  ingredientsList.forEach((item) => {
     const li = document.createElement("li");
-    li.textContent = it;
+    li.textContent = item;
+    li.classList.add("ingredient-item");
     ingredientsUl.appendChild(li);
   });
 }
 
-// On load, populate ingredients from localStorage if present
 function loadSavedIngredients() {
   const saved = localStorage.getItem("userIngredients");
   if (!saved) return;
@@ -86,6 +82,7 @@ function loadSavedIngredients() {
   ingredientsList.forEach((item) => {
     const li = document.createElement("li");
     li.textContent = item;
+    li.classList.add("ingredient-item");
     ingredientsUl.appendChild(li);
   });
 }
@@ -96,8 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function clearIngredients() {
-  if (
-    !confirm()) return;
+  if (!confirm()) return;
   localStorage.removeItem("userIngredients");
   ingredientsList = [];
   const ingredientsUl = document.querySelector(".ingredients-list");
@@ -105,6 +101,26 @@ function clearIngredients() {
   const inactiveP = document.querySelector(".add-ingredients .toggle");
   if (inactiveP) inactiveP.classList.add("inactive");
 }
+
+document
+  .querySelector(".ingredients-list")
+  .addEventListener("click", removeOneIngredient);
+
+function removeOneIngredient(e) {
+  if (e.target.classList.contains("ingredient-item")) {
+    let item = e.target;
+    let text = item.textContent;
+    console.log("Removing ingredient:", text);
+    ingredientsList.splice(ingredientsList.indexOf(text), 1);
+    console.log(ingredientsList);
+    item.remove();
+    localStorage.setItem("userIngredients", JSON.stringify(ingredientsList));
+    const ingredientsUl = document.querySelector(".ingredients-list");
+    if (ingredientsUl) ingredientsUl.innerHTML = "";
+    loadSavedIngredients();
+  }
+}
+
 
 //search
 let recipes = [];
