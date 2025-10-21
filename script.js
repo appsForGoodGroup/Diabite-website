@@ -10,7 +10,9 @@ closeBtn.addEventListener("click", () => {
 });
 
 //Ingredients Pop Up
-let ingredientsList = [];
+// Keep a global ingredients list available on window for other scripts / console
+window.ingredientsList = window.ingredientsList || [];
+let ingredientsList = window.ingredientsList;
 function IngredientsPopUp() {
   const input = prompt(
     "Please enter the ingredients you have at home, separated by commas. For example: eggs, milk, bread"
@@ -45,6 +47,8 @@ function IngredientsPopUp() {
     if (!exists) ingredientsList.push(item);
   });
 
+  // Ensure the global copy is updated and persist
+  window.ingredientsList = ingredientsList;
   localStorage.setItem("userIngredients", JSON.stringify(ingredientsList));
   console.log("User Ingredients:", ingredientsList);
 
@@ -60,18 +64,23 @@ function IngredientsPopUp() {
     li.classList.add("ingredient-item");
     ingredientsUl.appendChild(li);
   });
+  if (typeof runMatchingAndLog === "function") runMatchingAndLog();
 }
 
 function loadSavedIngredients() {
   const saved = localStorage.getItem("userIngredients");
   if (!saved) return;
-  let ingredientsList;
+  let parsed;
   try {
-    ingredientsList = JSON.parse(saved);
+    parsed = JSON.parse(saved);
   } catch (e) {
     console.error("Failed to parse saved ingredients", e);
     return;
   }
+
+  // Update the global ingredients list so other scripts see it
+  window.ingredientsList = Array.isArray(parsed) ? parsed : [];
+  ingredientsList = window.ingredientsList;
 
   const inactiveP = document.querySelector(".add-ingredients .inactive");
   const ingredientsUl = document.querySelector(".ingredients-list");
@@ -85,6 +94,8 @@ function loadSavedIngredients() {
     li.classList.add("ingredient-item");
     ingredientsUl.appendChild(li);
   });
+  // Run matching after loading saved ingredients
+  if (typeof runMatchingAndLog === "function") runMatchingAndLog();
 }
 
 // Run on page load
@@ -100,6 +111,7 @@ function clearIngredients() {
   if (ingredientsUl) ingredientsUl.innerHTML = "";
   const inactiveP = document.querySelector(".add-ingredients .toggle");
   if (inactiveP) inactiveP.classList.add("inactive");
+  if (typeof runMatchingAndLog === "function") runMatchingAndLog();
 }
 
 document
@@ -118,59 +130,85 @@ function removeOneIngredient(e) {
     const ingredientsUl = document.querySelector(".ingredients-list");
     if (ingredientsUl) ingredientsUl.innerHTML = "";
     loadSavedIngredients();
+    if (typeof runMatchingAndLog === "function") runMatchingAndLog();
   }
 }
 
+//matching algorithm
+// Helper: normalize an ingredient string (remove brackets/quotes, lowercase, trim)
+function normalizeIngredient(str) {
+  if (!str) return "";
+  return str
+    .replace(/^[\[\]\"]+/g, "")
+    .replace(/[\[\]\"]+$/g, "")
+    .replace(/'/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+//matching algorithm
+function findMatchingRecipes(userIngredients, allRecipes) {
+  if (!Array.isArray(userIngredients) || !Array.isArray(allRecipes)) return [];
+
+  // Normalize user ingredients once
+  const userSet = new Set(
+    userIngredients.map((u) => normalizeIngredient(u)).filter((x) => x)
+  );
+
+  const matches = allRecipes.filter((recipe) => {
+    if (!recipe || !recipe.Ingredients) return false; // Skip if no ingredients listed
+
+    // Get recipe ingredients as array of normalized strings
+    let rIngredients = [];
+    if (Array.isArray(recipe.Ingredients)) {
+      rIngredients = recipe.Ingredients.map((i) => normalizeIngredient(i));
+    } else if (typeof recipe.Ingredients === "string") {
+      rIngredients = recipe.Ingredients.split(",").map((i) =>
+        normalizeIngredient(i)
+      );
+    }
+
+    // A match when every recipe ingredient exists in userSet
+    return (
+      rIngredients.length > 0 && rIngredients.every((ri) => userSet.has(ri))
+    );
+  });
+
+  return matches;
+}
+
+// Run matching and log results (exposed for external use)
+function runMatchingAndLog() {
+  try {
+    const matches = findMatchingRecipes(
+      window.ingredientsList || [],
+      window.recipes || []
+    );
+    console.log("Matched recipes:", matches);
+    return matches;
+  } catch (e) {
+    console.error("Error running matching:", e);
+    return [];
+  }
+}
+
+// expose function
+window.findMatchingRecipes = findMatchingRecipes;
+window.runMatchingAndLog = runMatchingAndLog;
 
 //search
-let recipes = [];
+// Keep recipes global as well so other scripts can access them
+window.recipes = window.recipes || [];
+let recipes = window.recipes;
 
 fetch("recipes/recipes.json")
   .then((res) => res.json())
   .then((data) => {
-    recipes = data;
+    // update global recipes reference and run matching
+    window.recipes = data;
+    recipes = window.recipes;
     console.log("Loaded recipes:", recipes.length);
-  });
-
-document
-  .querySelector(".searchbar")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
-    const searchTerm = document.querySelector(".search-input").value;
-    let results;
-
-    if (searchTerm) {
-      results = recipes.filter((r) =>
-        r.Title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      console.log(results);
-    }
-
-    const cardHolder = document.querySelector(".result-holder");
-    cardHolder.innerHTML = "";
-    results.forEach((r) => {
-      let ingredientsList = "<ul>";
-
-      if (Array.isArray(r.Ingredients)) {
-        r.Ingredients.forEach((i) => {
-          ingredientsList += `<li>${i.replace(/^\[|'|\]$/g, "").trim()}</li>`;
-        });
-      } else if (typeof r.Ingredients === "string") {
-        r.Ingredients.split(",").forEach((i) => {
-          ingredientsList += `<li>${i.replace(/^\[|'|\]$/g, "").trim()}</li>`;
-        });
-      }
-
-      ingredientsList += "</ul>";
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-    <div class="container">
-      <h4><b>${r.Title}</b></h4>
-      <b>Ingredients:</b> ${ingredientsList}
-      <p><b>Instructions:</b> ${r.Instructions}</p>
-    </div>
-  `;
-      cardHolder.appendChild(card);
-    });
+    if (typeof runMatchingAndLog === "function") runMatchingAndLog();
+    console.log(ingredientsList);
+    console.log(recipes);
   });

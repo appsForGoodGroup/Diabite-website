@@ -6,7 +6,7 @@
     <title>DiaBite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" type="image/x-icon" href="/images/logo.png">
+    <link rel="icon" type="image/x-icon" href="images/logo.png">
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
@@ -18,8 +18,8 @@
         <a href="#" class="logo">DiaBite</a>
         <ul class="links">
           <span id="close-btn" class="material-symbols-outlined">close</span>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
           <li><a href="search.html">Search</a></li>
           <li><a href="upload.html">Upload</a></li>
           <li><a href="plan.html">Meal Plan</a></li>
@@ -36,19 +36,8 @@
         </form>
         <div class="card-holder result-holder"></div>
     </section>
-    <script>
-      const header = document.querySelector("header");
-      const menuBtn = document.getElementById("menu-btn");
-      const closeBtn = document.getElementById("close-btn");
 
-      menuBtn.addEventListener("click", () => {
-        header.classList.toggle("show-menu");
-      });
-      closeBtn.addEventListener("click", () => {
-        menuBtn.click();
-      });
+    <script src="search.js">
     </script>
-
-    <script src="script.js"></script>
   </body>
 </html>
